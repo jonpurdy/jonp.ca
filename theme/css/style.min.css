@@ -207,15 +207,15 @@ main article .article__text h3, main article .article__text h4, main article .ar
 }
 main article .article__text code {
   padding: 0.2em 0;
-  color: #8B0000;
-  font-family: 'Roboto Mono', monospace;
+  color: #404040;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   background: #e6e6e6;
   border-radius: 3px;
 }
 main article .article__text pre {
   margin: 22px 2px 22px 2px;
   padding: 9.5px;
-  font-family: 'Roboto Mono', monospace;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   line-height: 1.45;
   overflow-x: auto;
   border-style: none;

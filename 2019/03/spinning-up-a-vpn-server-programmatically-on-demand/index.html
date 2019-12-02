@@ -121,9 +121,9 @@ ID          Name                   Created at              Regions
     <span class="k">while</span> <span class="n">action</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="s2">&quot;completed&quot;</span><span class="p">:</span>
         <span class="n">action</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">action</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s2">&quot;in-progress&quot;</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">status</span><span class="p">)</span>
         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
@@ -143,7 +143,7 @@ ID          Name                   Created at              Regions
     <span class="k">if</span> <span class="n">zone</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">CF_ZONE_NAME</span><span class="p">:</span>
         <span class="n">zone_id</span> <span class="o">=</span> <span class="n">zone</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
         <span class="n">zone_name</span> <span class="o">=</span> <span class="n">zone</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
-        <span class="k">print</span><span class="p">(</span><span class="n">zone_id</span><span class="p">,</span> <span class="n">zone_name</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">zone_id</span><span class="p">,</span> <span class="n">zone_name</span><span class="p">)</span>
 </pre></div>
 
 
