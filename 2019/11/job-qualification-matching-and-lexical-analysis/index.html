@@ -55,12 +55,12 @@
   <div class="article__text">
     <p><img src="/images/20191128-lexical/20181028-13-57-39-2000.jpg" alt="This is the most Apple corporate-related image I have from when I visited in 2018." width="100%" /></p>
 <h1>Goal</h1>
-<p>I read an article on <a href="news.ycombinator.com">HN</a> about FAANG companies, compensation, and what to do when you quit one. I wondered if I was qualified for any. So I wanted to grab a bunch of roles from Apple's job site and figure out which ones would be the best match for my skillset.</p>
+<p>I read an article on <a href="news.ycombinator.com">HN</a> about FAANG companies. As some of the top places to work, I wondered if my qualifications matched up with roles there. Since I've been a Mac user since 1992 and an Apple ][ user since I was a baby, I figured I'd  grab a bunch of roles from Apple's career site and figure out which ones would be the best match for my skillset.</p>
 <h1>Prerequisites</h1>
 <ul>
-<li>Signed up for Apple's job site  </li>
-<li>Favourited a bunch of roles I might be interested in  </li>
 <li>Know a bit of Python  </li>
+<li>Sign up for Apple's career site  </li>
+<li>Favourite a bunch of roles you're interested in</li>
 </ul>
 <h1>Get the roles</h1>
 <p>Since the focus of this article is on lexical analysis, I'll just quickly go through how I got the role qualifications.</p>
@@ -170,7 +170,7 @@ jaccard: 0.20833333333333334
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">role</span> <span class="ow">in</span> <span class="n">roles</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">comparison</span> <span class="ow">in</span> <span class="n">roles</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">role</span><span class="o">.</span><span class="n">title</span> <span class="o">==</span> <span class="n">comparison</span><span class="o">.</span><span class="n">title</span><span class="p">:</span>
-            <span class="k">pass</span> <span class="c1"># no point in matching if they&#39;re the exact same job</span>
+            <span class="k">pass</span> <span class="c1"># no point in matching if they&#39;re the exact same role</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">qx</span> <span class="ow">in</span> <span class="n">role</span><span class="o">.</span><span class="n">qualifications</span><span class="p">:</span>
                 <span class="k">for</span> <span class="n">qy</span> <span class="ow">in</span> <span class="n">comparison</span><span class="o">.</span><span class="n">qualifications</span><span class="p">:</span>
@@ -192,15 +192,15 @@ jaccard: 0.20833333333333334
 <p>Here we go! Two qualifications from different job postings that are not exactly the same, but incredibly similar.</p>
 <p>Rather than looking through the entire 2500-line output, I set the comparisons to only print if the Levenshtein score was below 30 and Jaccard was below 0.15.</p>
 <p><strong>Sentence 1</strong>: <em>Ability to communicate thoughtfully, leveraging problem-solving skills and a learning mindset to build long-term relationships</em><br>
-<strong>Sentence 2</strong>: <em>Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels.</em>
+<strong>Sentence 2</strong>: <em>Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels.</em><br>
 <strong>Levenshtein</strong>: 122, <strong>Jaccard</strong>: 0.142</p>
 <p><strong>Sentence 1</strong>: <em>Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels</em><br>
-<strong>Sentence 2</strong>: <em>Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels.</em>
+<strong>Sentence 2</strong>: <em>Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels.</em><br>
 <strong>Levenshtein</strong>: 2, <strong>Jaccard</strong>: 0.037 👍</p>
-<p>So it appears that anything with a Jaccard distance <strong>&lt; 0.1</strong> is similar enough to be the same qualification. With that in mind, let's graph it.</p>
+<p>So it appears that anything with a Levenshtein distance <strong>&lt; 20</strong> or a Jaccard distance <strong>&lt; 0.1</strong> is similar enough to be the same qualification. With that in mind, let's graph it.</p>
 <h1>Graphing</h1>
 <p>I figured this would be pretty simple to plug into library that can spit out a nice-looking network graph. However, it's not quite so simple.</p>
-<p>To create the graph, I used <a href="https://networkx.github.io">NetworkX</a>, a Python module specifically for creating graphs.  But NetworkX doesn't draw the graph, only creates connections between nodes and edges. To draw it, I needed to use another library. I figured I'd use Plot.ly because I've used it for simple things in the past but the <a href="https://plot.ly/python/network-graphs/">documentation</a> was pretty sparse and didn't help with the errors I was immediately getting. I ended up just following the NetworkX docs and using <a href="https://matplotlib.org/">Matplotlib</a>, which isn't as pretty but was much simpler.</p>
+<p>To create the graph, I used <a href="https://networkx.github.io">NetworkX</a>, a Python module specifically for creating graphs.  But NetworkX doesn't draw the graph, it only creates connections between nodes and edges and provides coordinates for everything. To draw it, I needed to use another library. I started off following the NetworkX docs and using <a href="https://matplotlib.org/">Matplotlib</a>, was simple and allowed me to generate simple graphs quickly.</p>
 <p>A simple graph with two nodes (A, B) connected by an edge (A-B) can be created like this:</p>
 <div class="highlight"><pre><span></span><span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
 <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">&quot;A&quot;</span><span class="p">)</span>
@@ -227,21 +227,21 @@ jaccard: 0.20833333333333334
 </pre></div>
 
 
-<p>Now, you may be wondering why I'm adding nodes as I did the comparison instead of generating all nodes (roles, qualifications) and edges (roles←→qualifications) first, then comparing and linking the similar qualification nodes. The issue was that if two or more qualifications from different nodes were <em>exactly</em> the same, <em>and</em> there were similar qualifications found, I'd only be able to add edges to the first one in the node list unless I also added unique IDs to the nodes. I implemented this the way I did out of laziness since I wanted to see results quickly:</p>
+<p>Now, you may be wondering why I'm adding nodes as I did the comparison instead of generating all nodes (roles, qualifications) and edges (role𝑥←→qualification𝑦) first, then comparing and linking the similar qualification nodes. The issue was that if two or more qualifications from different nodes were <em>exactly</em> the same, <em>and</em> there were similar qualifications found, I'd only be able to add edges to the first one in the node list unless I also added unique IDs to the nodes. I implemented this the way I did out of laziness since I wanted to see results quickly:</p>
 <p><img src="/images/20191128-lexical/matplotlib.png" width="100%" /></p>
-<p>So, it's clear that some of the qualifications are similar between jobs. But the graph was pretty ugly (especially since I had to truncate the qualifications to make them fit). I tried a bit more with Matplotlib but eventually got Plot.ly working:</p>
+<p>So, it's clear that some of the qualifications are similar between roles. But the graph was pretty ugly (especially since I had to truncate the qualifications to make them fit). I tried a bit more with Matplotlib but eventually implemented <a href="https://plot.ly/python/network-graphs/">Plot.ly</a>:</p>
 <p><img src="/images/20191128-lexical/5.png" width="100%" /></p>
-<p>As expected, similar qualifications are linked together and it's easy to see the overlap between jobs. Mousing over each node reveals the full qualification:
+<p>As expected, similar qualifications are linked together and it's easy to see the overlap between roles. Here's a sample of a triangle of roles with overlapping qualifications. Mousing over each node reveals the full qualification:
 <img src="/images/20191128-lexical/6.png" width="100%" /></p>
-<p>Some jobs have even more overlap of qualifications. This is a bit more difficult to read since I haven't figured out a way to group the nodes, or to prevent lines from crossing each other (using this type of graph):
-<img src="/images/20191128-lexical/7.png" width="100%" /></p>
+<p>Some roles have even more overlap of qualifications. This is a bit more difficult to read since I haven't figured out a way to group the nodes, or to prevent lines from crossing each other (using this type of graph):
+<div class="full-width"><img src="/images/20191128-lexical/7.png" width="100%" /></div></p>
 <h1>Result</h1>
-<p>Of course, improving legibility and making it easier to understand connections can still be worked on. But it's easy to see that some roles have more overlap than others. At the same time, some qualifications say so much that they might as well be describing every job, like this: <em>"Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels"</em>.</p>
+<p>Of course, improving legibility and making it easier to understand connections can still be worked on. But it's easy to see that some roles have more overlap than others. At the same time, some qualifications say so much that they might as well be describing every role, like this: <em>"Goal oriented, highly motivated and able to work under minimal supervision in a cross-functional environment at detailed levels whilst taking account of interdependencies at higher levels"</em>.</p>
 <p>Still, it's useful to see if some roles more heavily overlap with others. One could apply to groups of similar roles without modifying their resume and/or cover letter, increasing application efficiency. </p>
 <p>Here's the full Plot.ly output if interested (select groups to zoom in and inspect, mouseover a node to view full role or description):
-<iframe src="/images/20191128-lexical/plot.html" width="100%" height="500"></iframe></p>
+<div class="full-width"><iframe src="/images/20191128-lexical/plot.html" width="100%" height="800"></iframe></div></p>
 <h1>Next Steps</h1>
-<p>I think that if I was looking for a role somewhere there would be other things one could do that would improve chances at landing a role. However, this was still an interesting learning experience.</p>
+<p>There are more important things one can do that improve their chances at landing a role. However, this was still an interesting learning experience.</p>
 <ul>
 <li>Add additional careers sites from different companies to see how qualifications differ between similar or exact match job descriptions </li>
 <li>Instead of using relatively simple Levenshtein and Jaccard distance, use TensorFlow Hub and use the <a href="https://tfhub.dev/google/universal-sentence-encoder-large/4">Universal Sentence Encoder</a></li>
